@@ -1,0 +1,34 @@
+parserOptions:
+  ecmaVersion: 6
+env:
+  node: true
+  es6: true
+rules:
+  comma-dangle: [2, always-multiline]
+  comma-style: [1, last]
+  no-catch-shadow: 2
+  no-delete-var: 2
+  no-dupe-args: 2
+  no-duplicate-case: 2
+  no-dupe-class-members: 2
+  no-dupe-keys: 2
+  no-duplicate-imports: 2
+  no-extra-semi: 2
+  no-label-var: 2
+  no-shadow: 2
+  no-shadow-restricted-names: 2
+  no-this-before-super: 2
+  no-redeclare: 2
+  no-undef: 2
+  no-undef-init: 2
+  no-underscore-dangle: 0
+  no-unreachable: 2
+  no-unused-expressions: 2
+  no-unused-vars: 2
+  no-use-before-define: 2
+  semi: [2, always]
+  space-infix-ops: 2
+  space-in-parens: [2, never]
+  strict: [2, safe]
+  quotes: [2, single]
+  yoda: 2

@@ -1,0 +1,42 @@
+import { z } from 'zod';
+export declare const ITiledMapText: z.ZodObject<{
+    text: z.ZodString;
+    bold: z.ZodOptional<z.ZodBoolean>;
+    color: z.ZodOptional<z.ZodString>;
+    fontfamily: z.ZodOptional<z.ZodString>;
+    halign: z.ZodOptional<z.ZodEnum<["center", "right", "justify", "left"]>>;
+    italic: z.ZodOptional<z.ZodBoolean>;
+    kerning: z.ZodOptional<z.ZodBoolean>;
+    pixelsize: z.ZodOptional<z.ZodNumber>;
+    strikeout: z.ZodOptional<z.ZodBoolean>;
+    underline: z.ZodOptional<z.ZodBoolean>;
+    valign: z.ZodOptional<z.ZodEnum<["center", "bottom", "top"]>>;
+    wrap: z.ZodOptional<z.ZodBoolean>;
+}, "strip", z.ZodTypeAny, {
+    color?: string | undefined;
+    bold?: boolean | undefined;
+    fontfamily?: string | undefined;
+    halign?: "center" | "right" | "justify" | "left" | undefined;
+    italic?: boolean | undefined;
+    kerning?: boolean | undefined;
+    pixelsize?: number | undefined;
+    strikeout?: boolean | undefined;
+    underline?: boolean | undefined;
+    valign?: "center" | "bottom" | "top" | undefined;
+    wrap?: boolean | undefined;
+    text: string;
+}, {
+    color?: string | undefined;
+    bold?: boolean | undefined;
+    fontfamily?: string | undefined;
+    halign?: "center" | "right" | "justify" | "left" | undefined;
+    italic?: boolean | undefined;
+    kerning?: boolean | undefined;
+    pixelsize?: number | undefined;
+    strikeout?: boolean | undefined;
+    underline?: boolean | undefined;
+    valign?: "center" | "bottom" | "top" | undefined;
+    wrap?: boolean | undefined;
+    text: string;
+}>;
+export declare type ITiledMapText = z.infer<typeof ITiledMapText>;
