@@ -358,15 +358,26 @@
          "name":"floorLayer",
          "objects":[
                 {
-                 "height":61.6672851518306,
+                 "height":85.6672851518306,
                  "id":12,
+                 "name":"GithubPopup",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":224.716220904799,
+                 "x":729.252658731954,
+                 "y":16.0269116471316
+                }, 
+                {
+                 "height":61.6672851518306,
+                 "id":23,
                  "name":"clockPopup",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":93.7162209047986,
-                 "x":483.919325398621,
-                 "y":14.0269116471316
+                 "x":482.585992065288,
+                 "y":17.0269116471316
                 }, 
                 {
                  "height":128,
@@ -452,13 +463,24 @@
                 {
                  "height":39.6969696969697,
                  "id":17,
+                 "name":"Github",
+                 "rotation":0,
+                 "type":"area",
+                 "visible":true,
+                 "width":50.2727272727272,
+                 "x":805.015151515152,
+                 "y":136.348484848485
+                }, 
+                {
+                 "height":39.6969696969697,
+                 "id":24,
                  "name":"clock",
                  "rotation":0,
                  "type":"area",
                  "visible":true,
                  "width":50.2727272727272,
-                 "x":438.484848484849,
-                 "y":96.3333333333333
+                 "x":432.666666666667,
+                 "y":95.4242424242424
                 }, 
                 {
                  "height":64,
@@ -493,6 +515,23 @@
                  "width":32,
                  "x":64,
                  "y":544
+                }, 
+                {
+                 "height":68.447,
+                 "id":25,
+                 "name":"Armoir",
+                 "properties":[
+                        {
+                         "name":"openWebsite",
+                         "type":"string",
+                         "value":"https:\/\/play.workadventu.re\/_\/paaes54i4yt\/localhost:5173\/map.tmj"
+                        }],
+                 "rotation":0,
+                 "type":"area",
+                 "visible":true,
+                 "width":66.0227,
+                 "x":608.446983333333,
+                 "y":382.734833333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -575,7 +614,7 @@
          "y":0
         }],
  "nextlayerid":65,
- "nextobjectid":20,
+ "nextobjectid":26,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -604,7 +643,7 @@
          "value":"src\/main.ts"
         }],
  "renderorder":"right-down",
- "tiledversion":"git",
+ "tiledversion":"1.10.2",
  "tileheight":32,
  "tilesets":[
         {
