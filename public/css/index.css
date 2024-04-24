@@ -1,0 +1,110 @@
+html, body {
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+.content {
+    flex: 1 0 auto;
+}
+footer {
+    flex-shrink: 0;
+}
+
+body {
+    font-family: Roboto Condensed,Arial;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+header {
+    margin: 30px;
+}
+
+header .logo {
+    display: block;
+    position: relative;
+}
+
+header .logo img {
+    display: block;
+    width: 500px;
+    margin: auto;
+    text-align: center;
+}
+
+h1,
+h2 {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+section {
+    margin-top: 3rem;
+}
+
+.tips {
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+.socials img {
+    width: 30px;
+    height: 30px;
+}
+
+.socials > a {
+    display: inline-block;
+    margin: 20px 5px;
+}
+
+a.button {
+    display: inline-block;
+    padding: 13px 20px 12px;
+    background-color: rgba(65, 86, 246, 0.9);
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    width: auto;
+    position: relative;
+    font-size: 1.3em;
+}
+
+a.button:hover {
+    background-color: rgb(65, 86, 246);
+    cursor: pointer;
+}
+
+.map {
+    width: 30%;
+    margin-bottom: 3%;
+    min-width: 200px;
+}
+
+.url-box {
+    border: 1px solid rgb(65, 86, 246);
+    border-radius: 3px;
+    padding: 3px;
+    background-color: rgba(65, 86, 246, 0.1);
+}
+.url {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+}
+
+footer {
+    display: block;
+    padding: 2rem 5vw;
+}
+
+#ghMapUrl {
+    padding: 1rem;
+    font-weight: 900;
+    width: 50%;
+    border-radius: .3rem;
+}
