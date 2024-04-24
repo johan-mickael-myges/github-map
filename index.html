@@ -7,23 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
     <meta name="title" content="WorkAdventure Starter Kit">
-    <title>WorkAdventure test map</title>
+    <title>GitAdventure test map</title>
     <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/css/index.css">
     <script>
         window.onload = function () {
             const host = 'localhost:8877';
-            let path = window.location.pathname;
-            if (path.endsWith('index.html')) {
-                path = path.substr(path, path.length - 'index.html'.length);
-            }
-            const instanceId = Math.random().toString(36).substring(2, 15);
-
             document.getElementById('ghMapUrl').addEventListener('change', function (e) {
                 let url = e.target.value;
                 url =  btoa(url);
-                const urlMap = `https://play.workadventu.re/_/${instanceId}/${host}/map/${url}`;
-                document.getElementById('testMapBtnURL').href = urlMap;
+                document.getElementById('testMapBtnURL').href = `https://play.workadventu.re/_/${url}/${host}/map/${url}`;
             });
 
         };
@@ -42,7 +35,7 @@
         <main>
             <section>
                 <input type="text" id="ghMapUrl" placeholder="Enter a github URL (HTTPS / SSH)" />
-                <p><a id="testMapBtnURL" href="#" class="button">Test the github map</a></p>
+                <p><a id="testMapBtnURL" href="#" class="button">Go to GitAdventure</a></p>
             </section>
 
             <section>
