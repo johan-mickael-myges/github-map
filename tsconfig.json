@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
+    "baseUrl": ".",
     "target": "ESNext",
     "useDefineForClassFields": true,
     "module": "ESNext",
@@ -30,6 +31,10 @@
     "skipLibCheck": true
   },
   "include": [
-    "src"
+    "src/api/**/*.ts",
+  ],
+  "exclude": [
+    "node_modules",
+    "src/map"
   ]
 }

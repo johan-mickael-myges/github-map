@@ -5,20 +5,26 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "api": "npx nodemon dist/server.js",
+    "dev-api": "npx tsc -w & nodemon --watch dist --exec ts-node dist/server.js",
     "start": "vite",
+    "api": "node src/api/server.js",
     "build": "tsc && vite build",
+    "compile:map": "npx webpack",
     "prod": "vite preview"
   },
   "devDependencies": {
     "@types/node": "^18.19.31",
     "@workadventure/iframe-api-typings": "^1.18.11",
-    "dotenv": "^16.3.1",
+    "dotenv": "^16.4.5",
     "nodemon": "^3.1.0",
+    "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^4.9.5",
     "vite": "^4.5.2",
-    "wa-map-optimizer-vite": "^1.1.28"
+    "wa-map-optimizer-vite": "^1.1.28",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
     "@types/express": "^4.17.21",
@@ -26,6 +32,11 @@
     "@workadventure/scripting-api-extra": "^1.8.1",
     "axios": "^1.6.8",
     "cors": "^2.8.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "fs": "^0.0.1-security",
+    "git-url-parse": "^14.0.0",
+    "github-api": "^3.4.0",
+    "octokit": "^3.2.0",
+    "path": "^0.12.7"
   }
 }

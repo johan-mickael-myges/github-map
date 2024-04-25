@@ -1,4 +1,4 @@
-{ "compressionlevel":-1,
+const map = { "compressionlevel":-1,
  "height":35,
  "infinite":false,
  "layers":[
@@ -1014,4 +1014,6 @@
  "type":"map",
  "version":"1.10",
  "width":55
-}
+};
+
+export default map;

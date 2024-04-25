@@ -35,7 +35,7 @@ export default defineConfig({
             },
         },
     },
-    plugins: [...getMapsOptimizers(maps, optimizerOptions)],
+    // plugins: [...getMapsOptimizers(maps, optimizerOptions)],
     server: {
         host: "0.0.0.0",
         headers: {
@@ -44,13 +44,6 @@ export default defineConfig({
             "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization",
             "Cache-Control": "no-cache, no-store, must-revalidate",
         },
-        open: "/",
-        proxy: {
-            "/api": {
-                target: "http://localhost:3001",
-                changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/api/, ""),
-            },
-        }
+        open: "/"
     },
 });

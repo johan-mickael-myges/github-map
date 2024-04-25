@@ -15,8 +15,8 @@
             const host = 'localhost:8877';
             document.getElementById('ghMapUrl').addEventListener('change', function (e) {
                 let url = e.target.value;
-                url =  btoa(url);
-                document.getElementById('testMapBtnURL').href = `https://play.workadventu.re/_/${url}/${host}/map/${url}`;
+                url = btoa(url);
+                document.getElementById('testMapBtnURL').href = `https://play.workadventu.re/_/${url}/${host}/${url}`;
             });
 
         };
