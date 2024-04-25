@@ -4,8 +4,12 @@ import { getMaps, getMapsOptimizers, getMapsScripts, LogLevel, OptimizeOptions }
 
 const maps = getMaps();
 
+
 let optimizerOptions: OptimizeOptions = {
-    logs: process.env.LOG_LEVEL && process.env.LOG_LEVEL in LogLevel ? LogLevel[process.env.LOG_LEVEL] : LogLevel.NORMAL,
+    // @ts-ignore
+    logs: process.env.LOG_LEVEL && typeof process.env.LOG_LEVEL === 'string' && process.env.LOG_LEVEL in LogLevel
+        ? LogLevel[+process.env.LOG_LEVEL]
+        : LogLevel.NORMAL,
 };
 
 if (process.env.TILESET_OPTIMIZATION && process.env.TILESET_OPTIMIZATION === "true") {
@@ -41,5 +45,12 @@ export default defineConfig({
             "Cache-Control": "no-cache, no-store, must-revalidate",
         },
         open: "/",
+        proxy: {
+            "/api": {
+                target: "http://localhost:3001",
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/api/, ""),
+            },
+        }
     },
 });
