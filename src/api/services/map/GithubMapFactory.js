@@ -22,8 +22,8 @@ export default class GithubMapFactory extends MapFactory {
         await this.setMapRepositoryDescriptionPopupText(repositoryData?.data);
 
         const ownerData = await this.repositoryService.getRepositoryOwnerInformationsByRepository(repositoryData?.data);
-        console.log(ownerData);
         await this.setMapOwnerInformationsPopupText(ownerData?.data);
+        await this.setMapOwnerUrl(ownerData?.data?.html_url);
 
         return this;
     }

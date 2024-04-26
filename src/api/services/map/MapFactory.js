@@ -116,9 +116,9 @@ export default class MapFactory {
         let currentMap = this.map;
 
         const openWebsiteProperty = currentMap.layers
-            .find((item) => item.id === 55)?.layers
-            .find((item) => item.id === 66)?.properties
-            .find((item) => item.name === 'openWebsite');
+            .find((item) => item.id === 2)?.objects
+            .find((item) => item.id === 60)?.properties
+            .find((item) => item.name === 'default');
 
         if (openWebsiteProperty) {
             openWebsiteProperty.value = url;

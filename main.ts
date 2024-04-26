@@ -5,23 +5,36 @@ import { bootstrapExtra } from "@workadventure/scripting-api-extra";
 console.log('Script started successfully');
 
 let currentPopup: any = undefined;
+let currentNotification: any = undefined;
 
 // Waiting for the API to be ready
-WA.onInit().then(() => {
+WA.onInit().then(async () => {
+    await welcomeMessage();
     bootstrapExtra().then(() => {
         console.log('Scripting API Extra ready');
     }).catch(e => console.error(e));
 
-    setup();
+    await setup();
 }).catch(e => console.error(e));
 
-function setup() {
+async function setup() {
+    await onBoarding();
+
     setupCamera();
     setupOnEnterRepoZone();
     setupOnEnterBrowseRepositoryWebsiteZone();
+    setupOnEnterOwnerWebsiteArea();
     setupOnEnterOwnerInformationZone();
     setupOnEnterReadmeArea();
     setupExitMap();
+}
+
+async function onBoarding() {
+    await initGuideForAllRepositoryArea();
+}
+
+async function welcomeMessage() {
+    await sendNotification("Welcome to the Github Adventure Map! 🎉");
 }
 
 function closePopup(){
@@ -29,6 +42,21 @@ function closePopup(){
         currentPopup.close();
         currentPopup = undefined;
     }
+}
+
+async function closeNotification(){
+    if (currentNotification !== undefined) {
+        currentNotification.close();
+        currentNotification = undefined;
+    }
+}
+
+async function sendNotification(message: string, timeout: number = 3000) {
+    await closeNotification();
+    currentNotification = WA.ui.openPopup("notification", message, []);
+    setTimeout(async () => {
+        await closeNotification();
+    }, timeout);
 }
 
 function setupCamera() {
@@ -62,13 +90,38 @@ function setupOnEnterBrowseRepositoryWebsiteZone(){
 
 function onEnterRepositoryWebsiteAreaCallback(){
     const triggerMessage = WA.ui.displayActionMessage({
-        message: "press 'space' to browse the repository website in a new tab",
+        message: "Press 'SPACE' to browse the github repository in a new tab",
         callback: () => {
             WA.nav.openTab(<string>WA.state.repositoryWebsiteUrl);
         }
     });
 
     WA.room.area.onLeave('browseRepositoryWebsiteArea').subscribe(async () => triggerMessage.remove());
+}
+
+async function initGuideForAllRepositoryArea() {
+    WA.room.area.onEnter('allRepositoryArea').subscribe(async () => {
+        await sendNotification("📚 Find all details about the repository in this area !");
+    });
+    WA.room.area.onLeave('allRepositoryArea').subscribe(async () => {
+        await closeNotification();
+    });
+}
+
+function setupOnEnterOwnerWebsiteArea(){
+    WA.room.area.onEnter('ownerViewOnGithubArea').subscribe(onEnterOwnerWebsiteAreaCallback);
+}
+
+function onEnterOwnerWebsiteAreaCallback(){
+    const triggerMessage = WA.ui.displayActionMessage({
+        message: "Press 'SPACE' to browse the owner github profile in a new tab",
+        callback: () => {
+            WA.nav.openTab(<string>WA.state.ownerGithubUrl);
+        }
+    });
+
+    WA.room.area.onLeave('ownerViewOnGithubArea').subscribe(async () => triggerMessage.remove());
+
 }
 
 function setupOnEnterReadmeArea() {
@@ -90,7 +143,6 @@ function onEnterReadmeAreaCallback() {
 function setupExitMap() {
     WA.room.area.onEnter('exitArea').subscribe(exitArea);
 }
-
 function exitArea() {
     WA.nav.goToPage('http://localhost:5173');
 }
