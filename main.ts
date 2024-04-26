@@ -16,9 +16,11 @@ WA.onInit().then(() => {
 }).catch(e => console.error(e));
 
 function setup() {
+    setupCamera();
     setupOnEnterRepoZone();
     setupOnEnterBrowseRepositoryWebsiteZone();
     setupOnEnterReadmeArea();
+    setupExitMap();
 }
 
 function closePopup(){
@@ -28,11 +30,22 @@ function closePopup(){
     }
 }
 
+function setupCamera() {
+    WA.camera.set(
+        0, // position x
+        0,
+        1280,
+        832,
+        false,
+        true
+    );
+}
+
 function setupOnEnterRepoZone(){
-    WA.room.area.onEnter('repoZone').subscribe(() => {
+    WA.room.area.onEnter('repositoryResumeArea').subscribe(() => {
         currentPopup = WA.ui.openPopup("repoPop", <string>WA.state.repositoryPopupDescriptionText, []);
     });
-    WA.room.area.onLeave('repoZone').subscribe(closePopup);
+    WA.room.area.onLeave('repositoryResumeArea').subscribe(closePopup);
 }
 
 function setupOnEnterBrowseRepositoryWebsiteZone(){
@@ -64,6 +77,14 @@ function onEnterReadmeAreaCallback() {
     });
 
     WA.room.area.onLeave('readmeArea').subscribe(() => WA.ui.modal.closeModal());
+}
+
+function setupExitMap() {
+    WA.room.area.onEnter('exitArea').subscribe(exitArea);
+}
+
+function exitArea() {
+    WA.nav.goToPage('http://localhost:5173');
 }
 
 export {};

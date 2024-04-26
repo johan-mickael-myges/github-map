@@ -73,12 +73,11 @@ export default class RepositoryService {
     }
 
     async formatRepositoryLanguagesData(languages) {
-        let languagesTextItem = [];
+        let languagesTextItem = ['\n'];
         const emojies = [
-            '🔵', '🟢', '🟠', '🟣', '🟡', '🔴', '⚫️', '⚪️', '🟤', '🔵', '🟢'];
+            '1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
         languages.forEach((language, index) => {
-            languagesTextItem.push(`${emojies[index]}${language.name}(${language.percentage}%)`);
-            if (index % 2 !== 0) languagesTextItem.push('\n');
+            languagesTextItem.push(`\t\t${emojies[index]} ${language.name} (${language.percentage}%)\n`);
         });
 
         return languagesTextItem.join(' ');

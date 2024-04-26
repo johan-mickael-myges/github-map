@@ -17,7 +17,7 @@ export default class GithubMapFactory extends MapFactory {
         await this.setMapRepositoryUrlToBrowse(repositoryData?.data?.html_url || 'https://github.com/workadventure/workadventure');
         await this.setMapEmbeddedReadmeUrl(await this.repositoryService.generateEmbeddedMarkdownURl(repositoryData.data));
 
-        const languagesData = await this.repositoryService.getRepositoryLanguages(repositoryData?.data?.languages_url, 10);
+        const languagesData = await this.repositoryService.getRepositoryLanguages(repositoryData?.data?.languages_url, 5);
         await this.setMapRepositoryLanguages(languagesData, this.repositoryService);
         await this.setMapRepositoryDescriptionPopupText(repositoryData?.data);
 
