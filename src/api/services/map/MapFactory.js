@@ -92,7 +92,24 @@ export default class MapFactory {
         }
 
         return this;
+    }
 
+    async setMapEmbeddedReadmeUrl(url) {
+        let currentMap = this.map;
+
+        const openWebsiteProperty = currentMap.layers
+            .find((item) => item.id === 2)?.objects
+            .find((item) => item.id === 42)?.properties
+            .find((item) => item.name === 'default');
+
+        if (openWebsiteProperty) {
+            openWebsiteProperty.value = url;
+
+            this.map = currentMap;
+            this.setup();
+        }
+
+        return this;
     }
 
     async setMapOwnerUrl(url) {
@@ -152,10 +169,13 @@ export default class MapFactory {
     }
 
     async getMapRepositoryDescriptionPopupText(data) {
-        let text = data?.description;
+        let text = '';
 
-        text += '\n';
-        text += '🔵 Main language: ' + data?.language || 'No language provided.';
+        if (data.description) {
+            text += data.description + '\n';
+        }
+
+        text += '🔵 Main language: ' + data?.language;
         text += '\n';
         text += '⭐️ Stars: ' + data?.stargazers_count;
         text += '\n';
@@ -163,8 +183,12 @@ export default class MapFactory {
         text += '\n';
         text += '🍴 Forks: ' + data?.forks_count;
         text += '\n';
-        text += '🏷️ Topics: ' + data?.topics.join(', ') || 'No topics provided.';
-        text += '\n';
+
+        if (data.topics) {
+            text += '🏷️ Topics: ' + data?.topics.join(', ') || 'No topics provided.';
+            text += '\n';
+        }
+
         text += '🌐 Network count: ' + data?.network_count;
 
         return text;

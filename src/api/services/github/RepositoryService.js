@@ -53,7 +53,7 @@ export default class RepositoryService {
         }
     }
 
-    async getRepositoryLanguages(url) {
+    async getRepositoryLanguages(url, limit = 5) {
         const languages = await axios.get(url);
         const totalBytes = Object.values(languages.data).reduce((a, b) => a + b, 0);
         const data = Object.keys(languages.data).map(key => {
@@ -64,9 +64,9 @@ export default class RepositoryService {
             }
         });
 
-        if (data.length > 5) {
+        if (data.length > limit) {
             // return only first 5 languages if there are more than 5 languages
-            data.length = 5;
+            data.length = limit;
         }
 
         return data;
@@ -74,11 +74,23 @@ export default class RepositoryService {
 
     async formatRepositoryLanguagesData(languages) {
         let languagesTextItem = [];
-        const emojies = ['🔵', '🟢', '🟠', '🟣', '🟡'];
+        const emojies = [
+            '🔵', '🟢', '🟠', '🟣', '🟡', '🔴', '⚫️', '⚪️', '🟤', '🔵', '🟢'];
         languages.forEach((language, index) => {
             languagesTextItem.push(`${emojies[index]}${language.name}(${language.percentage}%)`);
+            if (index % 2 !== 0) languagesTextItem.push('\n');
         });
 
         return languagesTextItem.join(' ');
+    }
+
+    async generateReadmeUrlByRepository(repositoryData) {
+        return repositoryData?.html_url + `/blob/${repositoryData.default_branch}/README.md`;
+    }
+
+    async generateEmbeddedMarkdownURl(repositoryData) {
+        let embeddedUrl = 'https://emgithub.com/iframe.html?target=';
+        let repoUrl = await this.generateReadmeUrlByRepository(repositoryData);
+        return embeddedUrl + encodeURIComponent(repoUrl) + '&type=markdown&style=monokai';
     }
 }

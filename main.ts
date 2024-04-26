@@ -18,6 +18,7 @@ WA.onInit().then(() => {
 function setup() {
     setupOnEnterRepoZone();
     setupOnEnterBrowseRepositoryWebsiteZone();
+    setupOnEnterReadmeArea();
 }
 
 function closePopup(){
@@ -47,6 +48,22 @@ function onEnterRepositoryWebsiteAreaCallback(){
     });
 
     WA.room.area.onLeave('browseRepositoryWebsiteArea').subscribe(async () => triggerMessage.remove());
+}
+
+function setupOnEnterReadmeArea() {
+    WA.room.area.onEnter('readmeArea').subscribe(onEnterReadmeAreaCallback);
+}
+
+function onEnterReadmeAreaCallback() {
+    WA.ui.modal.openModal({
+        title: "About the project",
+        src: <string>WA.state.readmeEmbedUrl,
+        allow: "fullscreen",
+        position: "center",
+        allowApi: true,
+    });
+
+    WA.room.area.onLeave('readmeArea').subscribe(() => WA.ui.modal.closeModal());
 }
 
 export {};
