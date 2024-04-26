@@ -214,4 +214,49 @@ export default class MapFactory {
         return this;
     }
 
+    async getMapOwnerInformationsText(ownerData) {
+        let text = '';
+
+        text += `👤 Username: ${ownerData.login}\n`;
+        if (ownerData.bio) {
+            text += `📝 Bio: ${ownerData.bio}\n`;
+        }
+        text += `💻 Account type: ${ownerData.type}\n`;
+        text += `📧 Email: ${ownerData.email || 'No email provided.'}\n`;
+        if (ownerData.company) {
+            text += `🏢 Company: ${ownerData.company}\n`;
+        }
+        if (ownerData.hireable) {
+            text += `💼 Available for hire\n`;
+        }
+        if (ownerData.location) {
+            text += `📍 Location: ${ownerData.location}\n`;
+        }
+        text += `🔗 Public repositories: ${ownerData.public_repos}\n`;
+        text += `👥 Followers: ${ownerData.followers} | Following: ${ownerData.following}\n`;
+        text += `📅 Member since: ${new Date(ownerData.created_at).toDateString()}\n`;
+
+        return text;
+    }
+
+    async setMapOwnerInformationsPopupText(ownerData) {
+        let currentMap = this.map;
+
+        const ownerInformationsProperty = currentMap.layers
+            .find((item) => item.id === 2)?.objects
+            .find((item) => item.id === 56)?.properties
+            .find((item) => item.name === 'default');
+
+        console.log(ownerInformationsProperty);
+
+        if (ownerInformationsProperty) {
+            ownerInformationsProperty.value = await this.getMapOwnerInformationsText(ownerData);
+
+            this.map = currentMap;
+            this.setup();
+        }
+
+        return this;
+    }
+
 }

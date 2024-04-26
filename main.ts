@@ -19,6 +19,7 @@ function setup() {
     setupCamera();
     setupOnEnterRepoZone();
     setupOnEnterBrowseRepositoryWebsiteZone();
+    setupOnEnterOwnerInformationZone();
     setupOnEnterReadmeArea();
     setupExitMap();
 }
@@ -46,6 +47,13 @@ function setupOnEnterRepoZone(){
         currentPopup = WA.ui.openPopup("repoPop", <string>WA.state.repositoryPopupDescriptionText, []);
     });
     WA.room.area.onLeave('repositoryResumeArea').subscribe(closePopup);
+}
+
+function setupOnEnterOwnerInformationZone(){
+    WA.room.area.onEnter('ownerInformationsArea').subscribe(() => {
+        currentPopup = WA.ui.openPopup("ownerInformationsPop", <string>WA.state.ownerInformationsText, []);
+    });
+    WA.room.area.onLeave('ownerInformationsArea').subscribe(closePopup);
 }
 
 function setupOnEnterBrowseRepositoryWebsiteZone(){

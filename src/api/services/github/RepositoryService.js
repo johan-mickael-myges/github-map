@@ -92,4 +92,11 @@ export default class RepositoryService {
         let repoUrl = await this.generateReadmeUrlByRepository(repositoryData);
         return embeddedUrl + encodeURIComponent(repoUrl) + '&type=markdown&style=monokai';
     }
+
+    async getRepositoryOwnerInformationsByRepository(repositoryData) {
+        return await this.authService.octokit.request("GET /users/{username}", {
+            username: repositoryData.owner.login,
+            headers
+        });
+    }
 }
