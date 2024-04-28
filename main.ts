@@ -23,10 +23,11 @@ async function setup() {
     setupCamera();
     setupOnEnterRepoZone();
     setupOnEnterBrowseRepositoryWebsiteZone();
-    setupOnEnterOwnerWebsiteArea();
     setupOnEnterOwnerInformationZone();
     setupOnEnterReadmeArea();
     setupExitMap();
+
+    setupOnEnterOwnerRepositoryArea();
 }
 
 async function onBoarding() {
@@ -79,7 +80,15 @@ function setupOnEnterRepoZone(){
 
 function setupOnEnterOwnerInformationZone(){
     WA.room.area.onEnter('ownerInformationsArea').subscribe(() => {
-        currentPopup = WA.ui.openPopup("ownerInformationsPop", <string>WA.state.ownerInformationsText, []);
+        currentPopup = WA.ui.openPopup("ownerInformationsPop", <string>WA.state.ownerInformationsText, [
+            {
+                label: `Open ${WA.state.repositoryOwner} profile on github`,
+                className: "primary",
+                callback: () => {
+                    WA.nav.openTab(<string>WA.state.ownerGithubUrl);
+                }
+            }
+        ]);
     });
     WA.room.area.onLeave('ownerInformationsArea').subscribe(closePopup);
 }
@@ -90,7 +99,7 @@ function setupOnEnterBrowseRepositoryWebsiteZone(){
 
 function onEnterRepositoryWebsiteAreaCallback(){
     const triggerMessage = WA.ui.displayActionMessage({
-        message: "Press 'SPACE' to browse the github repository in a new tab",
+        message: `Press SPACE to browse \n${WA.state.repositoryFullName}\n repository on github`,
         callback: () => {
             WA.nav.openTab(<string>WA.state.repositoryWebsiteUrl);
         }
@@ -108,24 +117,12 @@ async function initGuideForAllRepositoryArea() {
     });
 }
 
-function setupOnEnterOwnerWebsiteArea(){
-    WA.room.area.onEnter('ownerViewOnGithubArea').subscribe(onEnterOwnerWebsiteAreaCallback);
-}
-
-function onEnterOwnerWebsiteAreaCallback(){
-    const triggerMessage = WA.ui.displayActionMessage({
-        message: "Press 'SPACE' to browse the owner github profile in a new tab",
-        callback: () => {
-            WA.nav.openTab(<string>WA.state.ownerGithubUrl);
-        }
-    });
-
-    WA.room.area.onLeave('ownerViewOnGithubArea').subscribe(async () => triggerMessage.remove());
-
-}
-
 function setupOnEnterReadmeArea() {
     WA.room.area.onEnter('readmeArea').subscribe(onEnterReadmeAreaCallback);
+}
+
+function setupOnEnterOwnerRepositoryArea() {
+    WA.room.area.onEnter('ownerTopRepositoriesArea').subscribe(onEnterOwnertopRepositoriesArea);
 }
 
 function onEnterReadmeAreaCallback() {
@@ -138,6 +135,19 @@ function onEnterReadmeAreaCallback() {
     });
 
     WA.room.area.onLeave('readmeArea').subscribe(() => WA.ui.modal.closeModal());
+}
+
+function onEnterOwnertopRepositoriesArea() {
+
+    WA.ui.modal.openModal({
+        title: "Other repositories",
+        src: `https://localhost:8877/repositories/${WA.state.repositoryOwner}?exclude=${WA.state.repositoryFullName}`,
+        allow: "fullscreen",
+        position: "right",
+        allowApi: true,
+    });
+
+    WA.room.area.onLeave('ownerTopRepositoriesArea').subscribe(() => WA.ui.modal.closeModal());
 }
 
 function setupExitMap() {

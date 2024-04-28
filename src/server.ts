@@ -17,6 +17,14 @@ import * as path from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, '..', 'public')));
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+import copyEjsToDist from "./utils/copy-ejs-to-dist.js";
+
+await copyEjsToDist('src/views', 'dist/views');
+
 // Serve main.js from the root directory
 app.get('/main.js', (_req, res) => {
     res.sendFile(path.join(__dirname, '..', 'main.js'), {

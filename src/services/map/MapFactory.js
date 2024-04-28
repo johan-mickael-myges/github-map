@@ -58,6 +58,42 @@ export default class MapFactory {
         return this;
     }
 
+    async setMapRepositoryFullNameValue(value) {
+        let currentMap = this.map;
+
+        const repositoryFullNameProperty = currentMap.layers
+            .find((item) => item.id === 2)?.objects
+            .find((item) => item.id === 71)?.properties
+            .find((item) => item.name === 'default');
+
+        if (repositoryFullNameProperty) {
+            repositoryFullNameProperty.value = value;
+
+            this.map = currentMap;
+            this.setup();
+        }
+
+        return this;
+    }
+
+    async setMapRepositoryOwnerValue(value) {
+        let currentMap = this.map;
+
+        const repositoryFullNameProperty = currentMap.layers
+            .find((item) => item.id === 2)?.objects
+            .find((item) => item.id === 72)?.properties
+            .find((item) => item.name === 'default');
+
+        if (repositoryFullNameProperty) {
+            repositoryFullNameProperty.value = value;
+
+            this.map = currentMap;
+            this.setup();
+        }
+
+        return this;
+    }
+
     async setMapRepositoryText(text) {
         let currentMap = this.map;
 
@@ -172,16 +208,17 @@ export default class MapFactory {
         let text = '';
 
         if (data.description) {
-            text += data.description + '\n';
+            text += '📋 ' + data.description + '\n';
         }
 
-        text += '🔵 Main language: ' + data?.language;
-        text += '\n';
         text += '⭐️ Stars: ' + data?.stargazers_count;
         text += '\n';
         text += '👀 Watchers: ' + data?.watchers_count;
         text += '\n';
         text += '🍴 Forks: ' + data?.forks_count;
+        text += '\n';
+
+        text += '🔵 Main language: ' + data?.language;
         text += '\n';
 
         if (data.topics) {

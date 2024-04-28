@@ -7,7 +7,7 @@
     "dev": "vite",
     "dev-api": "npx tsc -w & nodemon --watch dist --exec ts-node dist/server.js",
     "start": "vite",
-    "api": "node src/api/server.js",
+    "api": "node src/server.js",
     "build": "tsc && vite build",
     "compile:map": "npx webpack",
     "prod": "vite preview"
@@ -15,6 +15,7 @@
   "devDependencies": {
     "@types/node": "^18.19.31",
     "@workadventure/iframe-api-typings": "^1.18.11",
+    "concurrently": "^8.2.2",
     "dotenv": "^16.4.5",
     "nodemon": "^3.1.0",
     "ts-loader": "^9.5.1",
@@ -32,8 +33,10 @@
     "@workadventure/scripting-api-extra": "^1.8.1",
     "axios": "^1.6.8",
     "cors": "^2.8.5",
+    "ejs": "^3.1.10",
     "express": "^4.19.2",
     "fs": "^0.0.1-security",
+    "fs-extra": "^11.2.0",
     "git-url-parse": "^14.0.0",
     "github-api": "^3.4.0",
     "octokit": "^3.2.0",

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title><%= repositories[0]?.full_name || '' %></title>
+</head>
+<body style="background: #0b0b1000">
+<div class="p-3">
+    <div class="d-flex flex-row align-items-top p-3 bg-light shadow-sm mb-4 rounded-sm">
+        <img width="100" height="100" class="rounded-circle" src="<%= owner.avatar_url %>">
+        <div class="ml-2">
+            <h3><%= owner.login %></h3>
+            <% if (owner.bio) { %>
+                <span class="text-secondary"><%= owner.bio %></span>
+            <% } %>
+            <!--Followers / Followings -->
+            <div class="d-flex flex-row">
+                <div class="mr-3">
+                    <span class="text-bold"><%= owner.followers %></span>
+                    <span class="text-secondary"> Followers</span>
+                </div>
+                <div class="mr-3">
+                    <span class="text-bold"><%= owner.following %></span>
+                    <span class="text-secondary"> Following</span>
+                </div>
+            </div>
+
+            <a href="<%= owner.html_url %>" target="_blank">🔗 Visit the profile on Github</a>
+        </div>
+    </div>
+
+    <% for (let i = 0; i < repositories.length; i++) { %>
+        <div class="mb-3 shadow-sm p-3 bg-light rounded-sm">
+            <h5>🚀 <%= repositories[i].name %></h5>
+            <!--stars-->
+            <div class="d-flex flex-row">
+                <div class="mr-3">
+                    <span class="text-bold">⭐ <%= repositories[i].stargazers_count %></span>
+                    <span class="text-secondary"> Stars</span>
+                </div>
+                <div class="mr-3">
+                    <span class="text-bold">🍴 <%= repositories[i].forks_count %></span>
+                    <span class="text-secondary"> Forks</span>
+                </div>
+                <div class="mr-3">
+                    <span class="text-bold">👀 <%= repositories[i].watchers %></span>
+                    <span class="text-secondary"> Watchers</span>
+                </div>
+            </div>
+
+            <% if (repositories[i].description) { %>
+                <div class="text-secondary">📋 <%= repositories[i].description %></div>
+            <% } %>
+
+            <% if (repositories[i].language) { %>
+                <div>
+                    🔵 Main language: <span class="badge badge-primary"><%= repositories[i].language %></span>
+                </div>
+            <% } %>
+
+            <!--Topics-->
+            <% if (repositories[i].topics.length > 0) { %>
+                <div>
+                    🏷️ Topics:
+                    <% for (let j = 0; j < repositories[i].topics.length; j++) { %>
+                        <span class="badge badge-secondary"><%= repositories[i].topics[j] %></span>
+                    <% } %>
+                </div>
+            <% } %>
+
+            <%
+                const host = 'localhost:8877';
+                const ENCODED_BASE64 = btoa(repositories[i].html_url);
+                const URL = `https://play.workadventu.re/_/${ENCODED_BASE64}/${host}/${ENCODED_BASE64}`
+            %>
+            <a href="<%= URL %>" target="_blank">
+                ↪️ Visit the repository in WorkAdventure 🗺️
+            </a>
+        </div>
+    <% } %>
+    </div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

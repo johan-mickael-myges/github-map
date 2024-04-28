@@ -9,9 +9,6 @@ export default class RepositoryService {
     }
 
     async getRepositories(options) {
-        // Authentication disabled for now
-        // await this.authService.checkAuthentication();
-
         const username = options?.username;
         if (!this.authService.isAuthenticated || username) {
 
@@ -21,16 +18,15 @@ export default class RepositoryService {
         }
 
         throw new Error("You are not authenticated!, please specify a username to get the repositories for.");
-        // return await this.authService.octokit.request("GET /user/repos", {
-        //     headers
-        // });
     }
 
-    async getRepositoriesForUser(username) {
-        return await this.authService.octokit.request("GET /users/{username}/repos", {
+    async getRepositoriesForUser(username, exclude = '') {
+        let repositories = await this.authService.octokit.request("GET /users/{username}/repos", {
             username,
             headers
         });
+
+        return repositories.data.filter(repo => repo.name !== exclude);
     }
 
     async getRepositoryByURL(url) {
@@ -96,6 +92,13 @@ export default class RepositoryService {
     async getRepositoryOwnerInformationsByRepository(repositoryData) {
         return await this.authService.octokit.request("GET /users/{username}", {
             username: repositoryData.owner.login,
+            headers
+        });
+    }
+
+    async getRepositoryOwnerInformations(username) {
+        return await this.authService.octokit.request("GET /users/{username}", {
+            username: username,
             headers
         });
     }

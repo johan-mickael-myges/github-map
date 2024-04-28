@@ -31,7 +31,8 @@
     "skipLibCheck": true
   },
   "include": [
-    "src/api/**/*.ts",
+    "src/**/*.ts",
+    "src/**/*.ejs",
   ],
   "exclude": [
     "node_modules",

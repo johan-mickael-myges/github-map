@@ -22,7 +22,7 @@ export default class GithubUserRepositoryRoutes {
                 const repositories = await this.repositoryService.getRepositories({
                     username
                 });
-                res.send(repositories?.data || []);
+                res.send(repositories || []);
             } catch (error) {
                 console.log(error);
                 res.send([]);

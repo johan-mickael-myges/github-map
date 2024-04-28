@@ -12,6 +12,10 @@ export default class MapRoutes {
   setup() {
     this._router.get('/:ghurl', async (req, res) => {
       let URL = req.params.ghurl || '';
+      if (URL === 'favicon.ico') {
+        res.send('');
+        return;
+      }
       console.log('URLB' + URL);
       URL = Buffer.from(URL, 'base64').toString('ascii');
 
