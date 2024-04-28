@@ -10,7 +10,6 @@ export default class GithubMapFactory extends MapFactory {
 
     async factory() {
         const repositoryData = await this.repositoryService.getRepositoryByURL(this.url);
-        console.log(repositoryData);
 
         await this.setMapRepositoryFullNameValue(repositoryData.data.full_name || 'workadventure/workadventure');
         await this.setMapRepositoryOwnerValue(repositoryData.data.owner?.login || 'workadventure');
@@ -23,6 +22,8 @@ export default class GithubMapFactory extends MapFactory {
         await this.setMapRepositoryDescriptionPopupText(repositoryData?.data);
 
         const ownerData = await this.repositoryService.getRepositoryOwnerInformationsByRepository(repositoryData?.data);
+        await this.setUsernameOnScreenText(ownerData?.data?.login);
+        await this.setUserFollowersText(ownerData?.data);
         await this.setMapOwnerInformationsPopupText(ownerData?.data);
         await this.setMapOwnerUrl(ownerData?.data?.html_url);
 

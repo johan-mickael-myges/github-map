@@ -143,7 +143,7 @@ function onEnterOwnertopRepositoriesArea() {
         title: "Other repositories",
         src: `https://localhost:8877/repositories/${WA.state.repositoryOwner}?exclude=${WA.state.repositoryFullName}`,
         allow: "fullscreen",
-        position: "right",
+        position: "left",
         allowApi: true,
     });
 

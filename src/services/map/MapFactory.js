@@ -221,7 +221,7 @@ export default class MapFactory {
         text += '🔵 Main language: ' + data?.language;
         text += '\n';
 
-        if (data.topics) {
+        if (data.topics.length > 0) {
             text += '🏷️ Topics: ' + data?.topics.join(', ') || 'No topics provided.';
             text += '\n';
         }
@@ -288,6 +288,44 @@ export default class MapFactory {
 
         if (ownerInformationsProperty) {
             ownerInformationsProperty.value = await this.getMapOwnerInformationsText(ownerData);
+
+            this.map = currentMap;
+            this.setup();
+        }
+
+        return this;
+    }
+
+    async setUsernameOnScreenText(username) {
+        let currentMap = this.map;
+
+        const ownerInformationsProperty = currentMap.layers
+        .find((item) => item.id === 54)?.layers
+        .find((item) => item.id === 115)?.objects
+        .find((item) => item.id === 66)?.text
+
+        if (ownerInformationsProperty) {
+            ownerInformationsProperty.text = '👤' + username;
+
+            this.map = currentMap;
+            this.setup();
+        }
+
+        return this;
+    }
+
+    async setUserFollowersText(ownerData) {
+        let currentMap = this.map;
+
+        const ownerInformationsProperty = currentMap.layers
+            .find((item) => item.id === 54)?.layers
+            .find((item) => item.id === 115)?.objects
+            .find((item) => item.id === 67)?.text
+
+        console.log(ownerInformationsProperty);
+
+        if (ownerInformationsProperty) {
+            ownerInformationsProperty.text = `👉🏼 Followers: ${ownerData.followers} 👉🏼 Following: ${ownerData.following}`;;
 
             this.map = currentMap;
             this.setup();

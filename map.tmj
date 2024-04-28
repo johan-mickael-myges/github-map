@@ -691,6 +691,12 @@
                          "height":19,
                          "id":66,
                          "name":"usernameOnScreen",
+                         "properties":[
+                                {
+                                 "name":"default",
+                                 "type":"string",
+                                 "value":""
+                                }],
                          "rotation":0,
                          "text":
                             {

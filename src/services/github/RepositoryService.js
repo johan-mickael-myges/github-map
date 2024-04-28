@@ -2,22 +2,23 @@ import AuthenticationService from "./AuthenticationService.js";
 import { defaultHeaders as headers } from "./constants.js";
 import GitUrlParse from 'git-url-parse';
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 
 export default class RepositoryService {
     constructor(options) {
+        if (options && process.env.GHTOOLS_PASSWORD) {
+            options.auth = process.env.GHTOOLS_PASSWORD;
+        }
         this.authService = new AuthenticationService(options);
     }
 
     async getRepositories(options) {
         const username = options?.username;
-        if (!this.authService.isAuthenticated || username) {
-
-            if (username) {
-                return await this.getRepositoriesForUser(username);
-            }
+        if (username) {
+            return await this.getRepositoriesForUser(username);
         }
-
-        throw new Error("You are not authenticated!, please specify a username to get the repositories for.");
+        return [];
     }
 
     async getRepositoriesForUser(username, exclude = '') {
